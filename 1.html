@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div {
+            /* position: relative; */
+            margin-left: 10px;
+            line-height: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <script>
+        var letter = ["A", "B", "C", "D", "E", "F"]
+        var divs = []
+
+        function create(num) {
+            var cur = []
+                // Math.floor( Math.random()*32+16)
+                // Math.floor(letter.length * Math.random())
+                // console.log(letter[Math.floor(letter.length * Math.random())])
+
+            for (var i = 0; i < num; i++) {
+                cur.push(letter[Math.floor(letter.length * Math.random())])
+                var div = document.createElement("div")
+                div.innerHTML = cur[i]
+                document.body.appendChild(div)
+                console.log(div)
+                div.style.cssText = "width:50px;height:50px;background:red;float:left; position:relative; line-height:" + Math.floor(Math.random() * 32 + 16) + "px;text-align: center; font-size: 50px; margin-left:" + Math.floor(Math.random() * 200 + 100) + "px";
+
+                divs.push(div)
+
+            }
+        }
+        create(3)
+
+        var speed = 5
+            // setInterval(function() {
+            //     create(3)
+            //     if (divs[i].offsetTop > 50) {
+            //         divs[i].offsetTop = 0
+            //         create(3)
+            //     }
+            // }, 300);
+
+        console.log(divs)
+        setInterval(() => {
+            // speed
+            for (var i = 0; i < divs.length; i++) {
+                divs[i].style.top = divs[i].offsetTop + speed + "px";
+
+            }
+
+
+        }, 500);
+        document.onkeydown = function(ev) {
+            console.log(1)
+
+
+            var letter = String.fromCharCode(ev.keyCode);
+            console.log(letter)
+            for (var i = 0; i < divs.length; i++) {
+                if (divs[i].innerHTML == letter) {
+                    document.body.removeChild(divs[i]);
+
+                    divs.splice(i, 1);
+                    create(1);
+
+                    break;
+
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>
